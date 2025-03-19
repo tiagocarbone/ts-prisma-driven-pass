@@ -1,0 +1,15 @@
+post /sign-up  
+{
+  "name": "name",
+  "email": "email@email.com",
+  "password": "batata",
+  "passwordConfirm": "batata"
+}
+
+post /credentials
+{
+	"title": "string",
+	"url": "string",
+	"username": "string",
+	"password": "string"
+}
