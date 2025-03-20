@@ -16,7 +16,7 @@ export const signInSchema = joi.object<UserSignIn>({
 });
 
 
-export const postCredentialSchema = joi.object<PostCredential>({
+export const postOrpUTCredentialSchema = joi.object<PostCredential>({
     title: joi.string().required(),
     url: joi.string().required(),
     username: joi.string().required(),

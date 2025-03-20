@@ -1,6 +1,6 @@
 import { Request } from "express";
 import prisma from "../db/index";
-import { PostCredential } from "protocols";
+import { PostCredential, PutCredential } from "protocols";
 import Cryptr from "cryptr";
 const cryptr = new Cryptr("senhaLongaESegura")
 
@@ -97,6 +97,52 @@ export async function credentialsDeleteByIdRepository(userId:  number, credentia
 
     
 }
+
+
+export async function credentialPutRepository(userId:  number, credentialId: number,  credential: PutCredential){
+    
+    try {
+        const existingCredential = await prisma.credentials.findUnique({
+            where: { id: credentialId },
+        });
+        console.log("userId", userId)
+        console.log("existingCredential", existingCredential)
+
+
+        if (existingCredential.userId !== userId) throw { type: "not found", message: "Credencial não pertence ao usuário" };
+        
+
+        const conflictingCredential = await prisma.credentials.findFirst({
+            where: {
+                userId: userId,
+                title: credential.title,
+                NOT: { id: credentialId }, 
+            },
+        });
+
+        if (conflictingCredential)  throw { type: "conflict", message: "Já existe uma credencial com este título para este usuário" };
+        
+
+        const updatedCredential = await prisma.credentials.update({
+            where: { id: credentialId },
+            data: {
+                title: credential.title,
+                url: credential.url,
+                username: credential.username,
+                password: cryptr.encrypt(credential.password),
+            },
+        });
+
+        return updatedCredential;
+
+    } catch (err) {
+
+            throw err; 
+        }
+    
+    
+}
+
 
 
 

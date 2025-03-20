@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { signUpSchema, signInSchema, postCredentialSchema } from "../schemas/index";
+import { signUpSchema, signInSchema, postOrpUTCredentialSchema } from "../schemas/index";
 import Joi, { AnySchema } from "joi";
 /*
 export function userSchemaValidationSignUp(req: Request, res: Response, next: NextFunction){

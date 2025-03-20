@@ -19,6 +19,9 @@ export type PostCredential = {
   userId: number
 }
 
+
+export type PutCredential = Omit<PostCredential, 'userId'>;
+
 export type  DecodedToken = {
   userId: string;
   //mensagem: string;
