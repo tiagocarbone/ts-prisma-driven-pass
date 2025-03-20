@@ -47,3 +47,36 @@ export async function credentialsPostRepository(req:Request, userId:  number){
     console.log(insertCredential)
 
 }
+
+export async function credentialsGetRepository(userId:  number){
+   
+    const credentials = await prisma.credentials.findMany({
+        where:{
+            userId: userId
+        }
+    })
+
+    credentials.map((credential) => credential.password = cryptr.decrypt(credential.password ));
+
+    return credentials;
+}
+
+
+
+export async function credentialsGetByIdRepository(userId:  number, credentialId: number){
+   
+    const credential = await prisma.credentials.findUnique({
+        where:{
+            userId: userId,
+            id: credentialId
+        }
+    })
+
+    if(!credential) throw { type: "not found", message: "não encontrado" }; 
+    credential.password = cryptr.decrypt(credential.password);  
+    return credential;
+    
+}
+
+
+

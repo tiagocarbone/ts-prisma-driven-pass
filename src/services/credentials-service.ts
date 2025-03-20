@@ -1,7 +1,23 @@
 import { Request } from "express";
-import { credentialsPostRepository } from "../repository/credentials-repository";
+import { credentialsPostRepository, credentialsGetRepository, credentialsGetByIdRepository } from "../repository/credentials-repository";
 
 export async function postCredentialsService(req: Request, userId: number){
 
     await credentialsPostRepository(req, userId);
+}
+
+
+
+export async function getCredentialsService(userId: number){
+
+    const credentials = await credentialsGetRepository(userId);
+    return credentials
+}
+
+
+
+export async function getCredentialByIdService(userId: number, credentialId: number){
+
+    const credential = await credentialsGetByIdRepository(userId, credentialId);
+    return credential
 }

@@ -14,7 +14,7 @@ export async function validarToken(req: Request, res: Response, next: NextFuncti
     jwt.verify(token, process.env.JWT_SECRET , (error, decoded) => {
         if (error) {
             console.log("Erro na verificação do token:", error.message);
-           /* return */ next({ type: "unauthorized", message: "Token inválido ou expirado" });
+            return  next({ type: "unauthorized", message: "Token inválido ou expirado" });
         }
         console.log("Decoded Token:", decoded);
 
