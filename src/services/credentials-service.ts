@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { credentialsPostRepository, credentialsGetRepository, credentialsGetByIdRepository } from "../repository/credentials-repository";
+import { credentialsPostRepository, credentialsGetRepository, credentialsGetByIdRepository, credentialsDeleteByIdRepository } from "../repository/credentials-repository";
 
 export async function postCredentialsService(req: Request, userId: number){
 
@@ -20,4 +20,10 @@ export async function getCredentialByIdService(userId: number, credentialId: num
 
     const credential = await credentialsGetByIdRepository(userId, credentialId);
     return credential
+}
+
+export async function deleteCredentialByIdService(userId: number, credentialId: number){
+
+    await credentialsDeleteByIdRepository(userId, credentialId);
+    
 }

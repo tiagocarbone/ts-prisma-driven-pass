@@ -80,3 +80,24 @@ export async function credentialsGetByIdRepository(userId:  number, credentialId
 
 
 
+export async function credentialsDeleteByIdRepository(userId:  number, credentialId: number){
+    try{
+        await prisma.credentials.delete({
+            where:{
+                userId: userId,
+                id: credentialId
+            }
+        })
+        
+    }catch(err){
+        console.log(err)
+        throw { type: "not found", message: "não encontrado" }; 
+    }
+  
+
+    
+}
+
+
+
+
