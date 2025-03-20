@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 
 
 export async function userSignUpService(req: Request): Promise<void> {
-    try {
+    //try {
         await userSignUpRepository(req);
-    } catch (error) {
-        throw error;
-    }
+    //} catch (error) {
+       // throw error;
+  //  }
 }
 
 
@@ -16,15 +16,17 @@ export async function userSignUpService(req: Request): Promise<void> {
 
 
 export async function userSignInService(req: Request): Promise<string> {
-    try {
+   // try {
         const user = await userSignInRepository(req.body);
         const token = jwt.sign(
-            { userId: user.id },
+            { userId: user.id
+               // mensagem: "ffc"
+             },
             process.env.JWT_SECRET,
             { expiresIn: 86400 }
         );
         return token;
-    } catch (error) {
-        throw error;
-    }
+    //} catch (error) {
+     //   throw error;
+   // }
 }

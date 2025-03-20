@@ -15,7 +15,15 @@ export type PostCredential = {
 	title: string,
 	url: string,
 	username: string,
-	password: string
+	password: string,
+  userId: number
+}
+
+export type  DecodedToken = {
+  userId: string;
+  //mensagem: string;
+  iat?: number;
+  exp?: number;
 }
 
 
